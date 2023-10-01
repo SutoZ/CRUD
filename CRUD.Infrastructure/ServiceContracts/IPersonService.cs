@@ -8,7 +8,7 @@ namespace CRUD.Infrastructure.ServiceContracts
         Task<PersonResponse> PostPersonAsync(PersonAddRequest request);
         Task<PersonResponse> PutPersonAsync(Guid id, PersonUpdateRequest request);
         Task<List<PersonResponse>> GetAllPersonsAsync();
-        Task<PersonResponse> GetPersonByIDAsync(Guid id);
+        Task<PersonResponse> GetPersonByIdAsync(Guid id);
         Task<bool> DeletePersonAsync(Guid id);
     }
 }

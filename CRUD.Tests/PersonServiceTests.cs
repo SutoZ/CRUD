@@ -3,13 +3,13 @@ using CRUD.Core.Domain.Entities;
 using CRUD.Core.DTO.Extensions;
 using CRUD.Core.DTO.Request;
 using CRUD.Core.DTO.Response;
-using CRUD.Core.ServiceContracts;
 using CRUD.Infrastructure;
+using CRUD.Infrastructure.RepositoryContracts;
 using CRUD.Infrastructure.ServiceContracts;
-using CRUD.Infrastructure.Services;
 using EntityFrameworkCoreMock;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
+using Moq;
 
 namespace CRUD.Tests;
 public class PersonServiceTests
@@ -17,12 +17,15 @@ public class PersonServiceTests
     private readonly IFixture __fixture;
     private readonly IPersonService __personService;
     private readonly ICountryService __countryService;
+    private readonly Mock<IPersonRepository> __personRepositoryMock;
+    private readonly IPersonRepository __personRepository;
 
     public PersonServiceTests()
     {
         __fixture = new Fixture();
         var personsInitialData = new List<Person>();
         var mockContext = new DbContextMock<ApplicationDbContext>(new DbContextOptionsBuilder<ApplicationDbContext>().Options);
+        __personRepositoryMock = new Mock<IPersonRepository>();
 
         ApplicationDbContext context = mockContext.Object;
 
@@ -30,13 +33,18 @@ public class PersonServiceTests
     }
 
     [Fact]
-    public async Task AddPerson_PersonDetails()
+    public async Task AddPerson_PersonDetails_ShouldBeSuccessful()
     {
         //Arrange
         PersonAddRequest? personAddRequest = __fixture
             .Build<PersonAddRequest>()
             .With(x => x.Email, "mytestemail@gmal.com")
             .Create();
+
+        //var personResponse = personAddRequest.ToPersonObject();
+
+        __personRepositoryMock.Setup(temp => temp.PostPersonAsync(It.IsAny<PersonAddRequest>())); //.ReturnsAsync();
+
 
         //Act
         PersonResponse? personResponse = await __personService.PostPersonAsync(personAddRequest);
@@ -57,13 +65,15 @@ public class PersonServiceTests
                 .With(x => x.Name, null as string)
                 .Create();
 
-        //Assert
-        await Assert.ThrowsAsync<ArgumentException>(async () =>
+
+        var action = async () =>
         {
             //Act
             await __personService.PostPersonAsync(personAddRequest);
-        });
+        };
 
+        //Assert
+        await action.Should().ThrowAsync<ArgumentException>();
     }
 
     [Fact]
@@ -73,7 +83,7 @@ public class PersonServiceTests
         Guid? personId = null;
 
         //Act
-        PersonResponse null_respons = await __personService.GetPersonByIDAsync(personId.Value);
+        PersonResponse null_respons = await __personService.GetPersonByIdAsync(personId.Value);
 
         //Assert
         null_respons.Should().BeNull();
@@ -90,7 +100,6 @@ public class PersonServiceTests
     }
 
     [Fact]
-
     public async Task UpdatePerson_InvalidPersonId()
     {
         //Arrange
@@ -100,10 +109,15 @@ public class PersonServiceTests
 
         Guid? personGuid = null;
 
-        //Assert
-        await Assert.ThrowsAsync<ArgumentException>(async () =>
+
+        Func<Task> action = async () =>
+        {
             //Act
-            await __personService.PutPersonAsync(personGuid.Value, addPerson));
+            await __personService.PutPersonAsync(personGuid.Value, addPerson);
+        };
+
+        //Assert
+        action.Should().ThrowAsync<ArgumentException>();
     }
 
     [Fact]
@@ -112,7 +126,7 @@ public class PersonServiceTests
         //Arrange
         var countryAddRequest = __fixture.Build<CountryAddRequest>().Create();
 
-        var countryResponse = await __countryService.AddCountryAsync(countryAddRequest);
+        var countryResponse = await __countryService.PostCountryAsync(countryAddRequest);
 
         var personAddRequest = __fixture.Build<PersonAddRequest>().Create();
 
@@ -127,7 +141,7 @@ public class PersonServiceTests
             await __personService.PutPersonAsync(Guid.NewGuid(), personUpdateRequest);
 
         PersonResponse personResponse_from_get =
-            await __personService.GetPersonByIDAsync(personResponse_from_Update.PersonId);
+            await __personService.GetPersonByIdAsync(personResponse_from_Update.PersonId);
         //Assert
 
         personResponse_from_get.PersonId.Should().Be(personResponse_from_Update.PersonId);

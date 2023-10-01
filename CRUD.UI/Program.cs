@@ -31,6 +31,7 @@ builder.Services.AddScoped<ICountryService, CountryService>();
 
 //add repositories
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
+builder.Services.AddScoped<ICountryRepository, CountryRepository>();
 
 
 builder.Services.AddEndpointsApiExplorer();
@@ -75,4 +76,3 @@ app.MapControllers();
 
 
 app.Run();
-

@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Domain\RepositoryContracts\" />
+    <Folder Include="DTO\Extensions\Country\" />
     <Folder Include="Helpers\" />
   </ItemGroup>
 

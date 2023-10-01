@@ -1,6 +1,5 @@
 ﻿using CRUD.Core.DTO.Request;
 using CRUD.Core.DTO.Response;
-using CRUD.Core.ServiceContracts;
 using CRUD.Infrastructure.RepositoryContracts;
 using CRUD.Infrastructure.ServiceContracts;
 
@@ -18,7 +17,7 @@ public class PersonService : IPersonService
     }
 
     public async Task<List<PersonResponse>> GetAllPersonsAsync() => await __personRepository.GetAllPersonsAsync();
-    public async Task<PersonResponse> GetPersonByIDAsync(Guid id) => await __personRepository.GetPersonByIDAsync(id);
+    public async Task<PersonResponse> GetPersonByIdAsync(Guid id) => await __personRepository.GetPersonByIdAsync(id);
     public async Task<PersonResponse> PostPersonAsync(PersonAddRequest request) => await __personRepository.PostPersonAsync(request);
     public async Task<PersonResponse> PutPersonAsync(Guid id, PersonUpdateRequest request) => await __personRepository.PutPersonAsync(id, request);
     public async Task<bool> DeletePersonAsync(Guid id) => await __personRepository.DeletePersonAsync(id);

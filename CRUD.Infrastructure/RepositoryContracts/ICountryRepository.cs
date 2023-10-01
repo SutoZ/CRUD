@@ -1,13 +1,13 @@
 ﻿using CRUD.Core.DTO.Request;
 using CRUD.Core.DTO.Response;
 
-namespace CRUD.Infrastructure.ServiceContracts;
+namespace CRUD.Infrastructure.RepositoryContracts;
 
-public interface ICountryService
+public interface ICountryRepository
 {
-    Task<CountryResponse> PostCountryAsync(CountryAddRequest? request);
-    Task<bool> DeleteCountryAsync(Guid countryId);
     Task<IEnumerable<CountryResponse>> GetAllCountriesAsync();
     Task<CountryResponse?> GetCountryByIdAsync(Guid? id);
+    Task<CountryResponse> PostCountryAsync(CountryAddRequest request);
     Task<CountryResponse> PutCountryAsync(Guid id, CountryUpdateRequest request);
+    Task<bool> DeleteCountryAsync(Guid id);
 }

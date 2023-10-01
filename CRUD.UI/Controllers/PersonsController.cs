@@ -1,7 +1,5 @@
-﻿using System.Net;
-using CRUD.Core.DTO.Request;
+﻿using CRUD.Core.DTO.Request;
 using CRUD.Core.DTO.Response;
-using CRUD.Core.ServiceContracts;
 using CRUD.Infrastructure.ServiceContracts;
 using Microsoft.AspNetCore.Mvc;
 using OneOf.Types;
@@ -45,7 +43,7 @@ public class PersonsController : CustomControllerBase
     [SwaggerResponse(StatusCodes.Status400BadRequest, "BAD REQUEST")]
     public async Task<ActionResult<PersonResponse>> GetPersonById([FromBody] Guid id)
     {
-        var response = await __personService.GetPersonByIDAsync(id);
+        var response = await __personService.GetPersonByIdAsync(id);
         return response == null ? NotFound() : Ok(response);
     }
 

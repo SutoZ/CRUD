@@ -1,10 +1,11 @@
 ﻿using System.Data;
+using System.Linq.Expressions;
+using CRUD.Core.Domain.Entities;
 using CRUD.Core.DTO.Response;
 using CRUD.Infrastructure.RepositoryContracts;
 using Microsoft.EntityFrameworkCore;
 using CRUD.Core.DTO.Extensions;
 using CRUD.Core.DTO.Request;
-using CRUD.Core.Domain.Entities;
 
 namespace CRUD.Infrastructure.Repositories;
 
@@ -26,9 +27,9 @@ public class PersonRepository : IPersonRepository
             .ToListAsync();
     }
 
-    public async Task<PersonResponse> GetPersonByIDAsync(Guid id)
+    public async Task<PersonResponse?> GetPersonByIdAsync(Guid id)
     {
-        var person = await __context.Persons.FirstOrDefaultAsync(x => x.PersonId == id);
+        var person = await __context.Persons.FindAsync(id);
         return person == null ? null : person.ToPersonResponse();
     }
 
@@ -54,7 +55,7 @@ public class PersonRepository : IPersonRepository
         return person.ToPersonResponse();
     }
 
-    public async Task<PersonResponse> PutPersonAsync(Guid id, PersonAddRequest request)
+    public async Task<PersonResponse> PutPersonAsync(Guid id, PersonUpdateRequest request)
     {
         ArgumentNullException.ThrowIfNull(request);
 
@@ -92,12 +93,21 @@ public class PersonRepository : IPersonRepository
 
         try
         {
-            await __context.SaveChangesAsync();
-            return true;
+            var deletedRows = await __context.SaveChangesAsync();
+            return deletedRows > 0;
         }
         catch (DBConcurrencyException e)
         {
             throw e;
         }
+    }
+
+    public async Task<IEnumerable<Person>> GetFilteredPerson(Expression<Func<Person, bool>> predicate)
+    {
+        var filteredPersons = await __context.Persons
+            .Include(x => x.Country)
+            .Where(predicate)
+            .ToListAsync();
+        return filteredPersons;
     }
 }

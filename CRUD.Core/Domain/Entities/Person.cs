@@ -1,5 +1,4 @@
-﻿using CRUD.Core.DTO.Response;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace CRUD.Core.Domain.Entities;
