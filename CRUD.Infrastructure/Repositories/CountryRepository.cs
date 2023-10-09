@@ -61,7 +61,9 @@ public class CountryRepository : ICountryRepository
 
         if (existingCountry == null) return null;
 
-        existingCountry.CountryId = request.CountryId;
+
+        CountryResponse countryResponse = existingCountry.ToCountryResponse();
+       countryResponse = request.ToCountryResponse();
 
         try
         {
@@ -70,10 +72,10 @@ public class CountryRepository : ICountryRepository
         catch (DbUpdateConcurrencyException e)
         {
             if (!CountryExists(id))
-                throw e;
+                throw;
         }
 
-        return existingCountry == null ? null : existingCountry.ToCountryResponse();
+        return countryResponse == null ? null : countryResponse;
     }
 
     private bool CountryExists(Guid id)
@@ -96,7 +98,7 @@ public class CountryRepository : ICountryRepository
         }
         catch (DBConcurrencyException e)
         {
-            throw e;
+            throw;
         }
     }
 }
