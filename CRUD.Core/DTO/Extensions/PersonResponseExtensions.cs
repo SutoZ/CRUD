@@ -16,7 +16,7 @@ public static class PersonResponseExtensions
         Gender = person.Gender,
         PersonId = person.PersonId,
         PersonalID = person.PersonalID,
-        Country = person.Country?.Name
+        Country = person.Country?.ToCountryResponse()
     };
 
     public static PersonUpdateRequest ToPersonUpdateRequest(this PersonResponse person) => new()

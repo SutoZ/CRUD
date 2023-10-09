@@ -37,7 +37,7 @@ public class CountriesController : CustomControllerBase
     [SwaggerOperation("Gets a country element by ID.")]
     [SwaggerResponse(StatusCodes.Status200OK, "Get country by ID was successful")]
     [SwaggerResponse(StatusCodes.Status400BadRequest, "BAD REQUEST")]
-    public async Task<ActionResult<CountryResponse?>> GetCountryById([FromBody] Guid id)
+    public async Task<ActionResult<CountryResponse?>> GetCountryById([FromQuery] Guid id)
     {
         var response = await __countryService.GetCountryByIdAsync(id);
         return response == null ? NotFound() : Ok(response);

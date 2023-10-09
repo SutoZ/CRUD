@@ -27,6 +27,18 @@ public class ApplicationDbContext : DbContext
             Name = "Hungary"
         });
 
+        modelBuilder.Entity<Country>().HasData(new Country
+        {
+            CountryId = new Guid("0919F2B8-96C4-4284-BF69-02881447ABE1"),
+            Name = "Spain"
+        });
+
+        modelBuilder.Entity<Country>().HasData(new Country
+        {
+            CountryId = new Guid("EA5DA711-9627-4191-BF9C-785EDA9D7C6F"),
+            Name = "Germany"
+        });
+
         modelBuilder.Entity<City>().HasData(new City { CityId = Guid.NewGuid(), Name = "Budapest", Population = 300000, PostalCode = "1058" });
         modelBuilder.Entity<Person>().HasData(new Person { PersonId = new Guid("FC8D48A1-A7FD-4DC4-88C0-FA512FF879FF"), Name = "Test Jacob", Address = "Test address", CountryId = new Guid("FC8D48A1-A7FD-4DC4-88C0-FA512FF879FF"), PersonalID = "123456" });
         modelBuilder.Entity<Airplane>().HasData(new Airplane
