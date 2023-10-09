@@ -13,11 +13,13 @@ public class PersonsController : CustomControllerBase
 {
     private readonly IPersonService __personService;
     private readonly ICountryService __countryService;
+    private readonly ILogger<PersonsController> _logger;
 
-    public PersonsController(IPersonService personService, ICountryService countryService)
+    public PersonsController(IPersonService personService, ICountryService countryService, ILogger<PersonsController> logger)
     {
         __personService = personService;
         __countryService = countryService;
+        _logger = logger;
     }
 
     /// <returns>Person elements</returns>
@@ -29,6 +31,7 @@ public class PersonsController : CustomControllerBase
     [SwaggerResponse(StatusCodes.Status400BadRequest, "BAD REQUEST")]
     public async Task<IActionResult> Get()
     {
+        _logger.LogInformation($"Index action method of {nameof(PersonsController)}");
         var response = await __personService.GetAllPersonsAsync();
         return Ok(response);
     }
