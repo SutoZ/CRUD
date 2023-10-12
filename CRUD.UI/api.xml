@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CRUD.UI</name>
+    </assembly>
+    <members>
+        <member name="M:CRUD.UI.Controllers.CountriesController.GetCountryById(System.Guid)">
+            <returns>Country element</returns>
+            <response code="200">Returns country element</response>
+            <response code="400">If request was not successful</response>
+        </member>
+        <member name="M:CRUD.UI.Controllers.CountriesController.PostCountry(CRUD.Core.DTO.Request.CountryAddRequest)">
+            <returns>Country element</returns>
+            <response code="201">Returns country element</response>
+            <response code="400">If request was not successful</response>
+        </member>
+        <member name="M:CRUD.UI.Controllers.CountriesController.PutCountry(System.Guid,CRUD.Core.DTO.Request.CountryUpdateRequest)">
+            <returns>Country element</returns>
+            <response code="201">Returns country element</response>
+            <response code="400">If request was not successful</response>
+        </member>
+        <member name="M:CRUD.UI.Controllers.CountriesController.DeleteCountry(System.Guid)">
+            <returns>Country element</returns>
+            <response code="201">Removes a country element</response>
+            <response code="400">If request was not successful</response>
+        </member>
+        <member name="M:CRUD.UI.Controllers.PersonsController.Get">
+            <returns>Person elements</returns>
+            <response code="200">Returns person elements</response>
+            <response code="400">If request was not successful</response>
+        </member>
+        <member name="M:CRUD.UI.Controllers.PersonsController.GetPersonById(System.Guid)">
+            <returns>Person elements</returns>
+            <response code="200">Returns person elements</response>
+            <response code="400">If request was not successful</response>
+        </member>
+        <member name="M:CRUD.UI.Controllers.PersonsController.PostPerson(CRUD.Core.DTO.Request.PersonAddRequest)">
+            <returns>Person element</returns>
+            <response code="201">Returns person element</response>
+            <response code="400">If request was not successful</response>
+        </member>
+        <member name="M:CRUD.UI.Controllers.PersonsController.PutPerson(System.Guid,CRUD.Core.DTO.Request.PersonUpdateRequest)">
+            <returns>Person element</returns>
+            <response code="201">Returns person element</response>
+            <response code="400">If request was not successful</response>
+        </member>
+        <member name="M:CRUD.UI.Controllers.PersonsController.DeletePerson(System.Guid)">
+            <returns>Person element</returns>
+            <response code="201">Removes person element</response>
+            <response code="400">If request was not successful</response>
+        </member>
+    </members>
+</doc>

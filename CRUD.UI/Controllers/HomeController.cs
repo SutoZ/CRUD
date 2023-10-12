@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CRUD.UI.Controllers
 {
+    [Route("api/[controller]")]
     public class HomeController : Controller
     {
+        [NonAction]
         [Route("Error")]
         public IActionResult Error()
         {

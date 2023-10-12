@@ -17,9 +17,6 @@ public class CountriesController : CustomControllerBase
         __countryService = countryService;
     }
 
-    /// <returns>Country elements</returns>
-    /// <response code="200">Returns country elements</response>
-    /// <response code="400">If request was not successful</response>
     [HttpGet]
     [SwaggerOperation("Gets all country elements.")]
     [SwaggerResponse(StatusCodes.Status200OK, "Get countries was successful")]
@@ -30,9 +27,6 @@ public class CountriesController : CustomControllerBase
         return Ok(response);
     }
 
-    /// <returns>Country element</returns>
-    /// <response code="200">Returns country element</response>
-    /// <response code="400">If request was not successful</response>
     [HttpGet("{id}")]
     [SwaggerOperation("Gets a country element by ID.")]
     [SwaggerResponse(StatusCodes.Status200OK, "Get country by ID was successful")]
@@ -43,10 +37,6 @@ public class CountriesController : CustomControllerBase
         return response == null ? NotFound() : Ok(response);
     }
 
-
-    /// <returns>Country element</returns>
-    /// <response code="201">Returns country element</response>
-    /// <response code="400">If request was not successful</response>
     [HttpPost("{request}")]
     [SwaggerOperation("Creates a country element.")]
     [SwaggerResponse(StatusCodes.Status201Created, "Post country was successful")]
@@ -58,10 +48,6 @@ public class CountriesController : CustomControllerBase
         return CreatedAtAction("GetCountryById", new { id = request.CountryId }, countries);
     }
 
-
-    /// <returns>Country element</returns>
-    /// <response code="201">Returns country element</response>
-    /// <response code="400">If request was not successful</response>
     [HttpPut("{id}")]
     [SwaggerOperation("Creates a country element.")]
     [SwaggerResponse(StatusCodes.Status201Created, "Put country was successful")]
@@ -75,11 +61,7 @@ public class CountriesController : CustomControllerBase
 
         return NoContent();
     }
-
-
-    /// <returns>Country element</returns>
-    /// <response code="201">Removes a country element</response>
-    /// <response code="400">If request was not successful</response>
+    
     [HttpDelete("{id}")]
     [SwaggerOperation("Deletes a country element.")]
     [SwaggerResponse(StatusCodes.Status201Created, "Delete country was successful")]

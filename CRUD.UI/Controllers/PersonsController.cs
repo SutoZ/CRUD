@@ -22,9 +22,6 @@ public class PersonsController : CustomControllerBase
         _logger = logger;
     }
 
-    /// <returns>Person elements</returns>
-    /// <response code="200">Returns person elements</response>
-    /// <response code="400">If request was not successful</response>
     [HttpGet]
     [SwaggerOperation("Gets all person elements.")]
     [SwaggerResponse(StatusCodes.Status200OK, "Get Persons was successful")]
@@ -36,10 +33,6 @@ public class PersonsController : CustomControllerBase
         return Ok(response);
     }
 
-
-    /// <returns>Person elements</returns>
-    /// <response code="200">Returns person elements</response>
-    /// <response code="400">If request was not successful</response>
     [HttpGet("{id}")]
     [SwaggerOperation("Gets a person element by ID.")]
     [SwaggerResponse(StatusCodes.Status200OK, "Get person by ID was successful")]
@@ -50,10 +43,6 @@ public class PersonsController : CustomControllerBase
         return response == null ? NotFound() : Ok(response);
     }
 
-
-    /// <returns>Person element</returns>
-    /// <response code="201">Returns person element</response>
-    /// <response code="400">If request was not successful</response>
     [HttpPost("{request}")]
     [SwaggerOperation("Creates a person element.")]
     [SwaggerResponse(StatusCodes.Status201Created, "Post person was successful")]
@@ -65,10 +54,6 @@ public class PersonsController : CustomControllerBase
         return CreatedAtAction("GetPersonById", new { id = request.PersonId }, persons);
     }
 
-
-    /// <returns>Person element</returns>
-    /// <response code="201">Returns person element</response>
-    /// <response code="400">If request was not successful</response>
     [HttpPut("{id}")]
     [SwaggerOperation("Creates a person element.")]
     [SwaggerResponse(StatusCodes.Status201Created, "Post person was successful")]
@@ -84,10 +69,6 @@ public class PersonsController : CustomControllerBase
         return NoContent();
     }
 
-
-    /// <returns>Person element</returns>
-    /// <response code="201">Removes person element</response>
-    /// <response code="400">If request was not successful</response>
     [HttpDelete("{id}")]
     [SwaggerOperation("Deletes a person element.")]
     [SwaggerResponse(StatusCodes.Status201Created, "Delete person was successful")]

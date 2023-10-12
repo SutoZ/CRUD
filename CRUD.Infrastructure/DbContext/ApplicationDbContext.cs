@@ -1,9 +1,11 @@
 ﻿using CRUD.Core.Domain.Entities;
+using CRUD.Core.Domain.IdentityEntities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CRUD.Infrastructure;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
 {
     public ApplicationDbContext(DbContextOptions options) : base(options) { }
 
